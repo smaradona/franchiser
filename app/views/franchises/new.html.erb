@@ -1,0 +1,60 @@
+<h1>Nueva Franquicia</h1>
+<%= error_messages_for(@franchise) %>
+<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+<div id="map-canvas" style="width: 800px; height: 400px"></div>
+<%= form_for :franchise, url: franchises_path do |f| %>
+
+  <p>
+    <%= f.label :owner_name, 'Titular' %><br>
+    <%= f.text_field :owner_name %>
+  </p>
+
+  <p>
+    <%= f.label :owner_phone, "Teléfono del titular" %><br>
+    <%= f.text_field :owner_phone %>
+  </p>
+
+  <p>
+    <%= f.label :owner_email, "Email del titular" %><br>
+    <%= f.text_field :owner_email %>
+  </p>
+
+  <p>
+    <%= f.label :province, "Provincia" %><br>
+    <%= f.text_field :province %>
+  </p>
+ 
+  <p>
+    <%= f.label :zone, "Zona" %><br>
+    <%= f.text_field :zone %>
+  </p>
+
+  <p>
+    <%= f.label :address, "Dirección" %><br>
+    <%= f.text_area :address %>
+  </p>
+
+  <p>
+    <%= f.label :zip_code, "Código postal" %><br>
+    <%= f.text_field :zip_code %>
+  </p>
+
+  <p>
+    <%= f.label :area_code, "Código de área" %><br>
+    <%= f.text_field :area_code %>
+  </p>
+
+  <p>
+    <%= f.label :phone_number, "Teléfono" %><br>
+    <%= f.text_field :phone_number %>
+  </p>
+
+  <p>
+    <%= f.label :email, "Email" %><br>
+    <%= f.text_field :email %>
+  </p>
+ 
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

@@ -1,0 +1,19 @@
+<h1>Listing franchises</h1>
+<table>
+	<tr>
+		<th>Titular</th>
+		<th>Telefono</th>
+		<th>Accion</th>
+	</tr>
+	<% @franchises.each do |f| %>
+	<tr>
+		<td><%= f.owner_name %></td>
+		<td><%= f.owner_phone %></td>
+		<td>
+			<%= link_to("Show", {:action => 'show', :id => f.id}, :class => 'action show') %>
+			<%= link_to("Edit", {:action => 'edit', :id => f.id}, :class => 'action edit') %>
+			<%= link_to("Delete", {:action => 'destroy', :id => f.id}, :class => 'action destroy') %>
+		</td>
+	</tr>
+	<% end %>
+</table>
