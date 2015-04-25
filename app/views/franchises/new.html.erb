@@ -1,5 +1,10 @@
 <h1>Nueva Franquicia</h1>
 <%= error_messages_for(@franchise) %>
+<div id="panel">
+  <input onclick="clearMarkers();" type=button value="Hide Markers">
+  <input onclick="showMarkers();" type=button value="Show All Markers">
+  <input onclick="deleteMarkers();" type=button value="Delete Markers">
+</div>
 <input id="pac-input" class="controls" type="text" placeholder="Search Box">
 <div id="map-canvas" style="width: 800px; height: 400px"></div>
 <%= form_for :franchise, url: franchises_path do |f| %>
