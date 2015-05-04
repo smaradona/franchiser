@@ -1,18 +1,36 @@
 <h1>Listing franchises</h1>
+<%= javascript_tag do %>
+	var latitudes = [];
+	var longitudes = [];
+<% end %>
+<% @franchises.each do |f| %>
+	<%= javascript_tag do %>
+		latitudes.push("<%= f.latitude %>")
+		longitudes.push("<%= f.longitude %>")
+	<% end %>
+<% end %>
+<div id="map-canvas" style="width: 800px; height: 400px"></div>
+<%= link_to 'Crear Franquicia', new_franchise_path %>
 <table>
 	<tr>
 		<th>Titular</th>
-		<th>Telefono</th>
-		<th>Accion</th>
+		<th>Teléfono</th>
+		<th>Provincia</th>
+		<th>Zona</th>
+		<th>Dirección</th>
+		<th>Acción</th>
 	</tr>
 	<% @franchises.each do |f| %>
 	<tr>
 		<td><%= f.owner_name %></td>
 		<td><%= f.owner_phone %></td>
+		<td><%= f.province %></td>
+		<td><%= f.zone %></td>
+		<td><%= f.address %></td>
 		<td>
-			<%= link_to("Show", {:action => 'show', :id => f.id}, :class => 'action show') %>
-			<%= link_to("Edit", {:action => 'edit', :id => f.id}, :class => 'action edit') %>
-			<%= link_to("Delete", {:action => 'destroy', :id => f.id}, :class => 'action destroy') %>
+			<%= link_to("Ver", {:action => 'show', :id => f.id}, :class => 'action show') %>
+			<%= link_to("Editar", {:action => 'edit', :id => f.id}, :class => 'action edit') %>
+			<%= link_to 'Eliminar', franchise_path(f.id), method: :delete, data: { confirm: '¿Está seguro de querer eliminar esta franquicia?' }, :class => 'action destroy' %>
 		</td>
 	</tr>
 	<% end %>

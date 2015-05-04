@@ -1,1 +1,58 @@
+<%= javascript_tag do %>
+	franchLat = ("<%= @franchise.latitude %>")
+	franchLng = ("<%= @franchise.longitude %>")
+<% end %>
 <h1>This is <%= @franchise.owner_name %>'s franchise</h1>
+<div id="map-canvas" style="width: 800px; height: 400px"></div>
+
+  <p>
+    Titular <br>
+    <%= @franchise.owner_name %> <br>
+  </p>
+
+  <p>
+    Teléfono del Titular <br>
+    <%= @franchise.owner_phone %> <br>
+  </p>
+
+  <p>
+    Teléfono del Titular <br>
+    <%= @franchise.owner_email %> <br>
+  </p>
+
+  <p>
+    Provincia <br>
+    <%= @franchise.province %> <br>
+  </p>
+ 
+  <p>
+    Zona <br>
+    <%= @franchise.zone %> <br>
+  </p>
+
+  <p>
+    Dirección <br>
+    <%= @franchise.address %> <br>
+  </p>
+
+  <p>
+    Código Postal <br>
+    <%= @franchise.zip_code %> <br>
+  </p>
+
+  <p>
+    Código de Área <br>
+    <%= @franchise.area_code %> <br>
+  </p>
+
+  <p>
+    Teléfono de la Franquicia <br>
+    <%= @franchise.phone_number %> <br>
+  </p>
+
+  <p>
+    Email de la Franquicia <br>
+    <%= @franchise.email %> <br>
+  </p>
+
+<%= link_to 'Back', franchises_path %>

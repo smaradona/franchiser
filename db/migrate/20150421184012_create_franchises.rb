@@ -11,8 +11,8 @@ class CreateFranchises < ActiveRecord::Migration
       t.string :area_code
       t.string :phone_number
       t.string :email
-      t.decimal :latitude
-      t.decimal :longitude
+      t.decimal :latitude, :precision => 15, :scale => 10
+      t.decimal :longitude, :precision => 15, :scale => 10
 
       t.timestamps null: false
     end

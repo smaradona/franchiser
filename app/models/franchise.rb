@@ -9,4 +9,6 @@ class Franchise < ActiveRecord::Base
 	validates :area_code, length: {minimum: 3, maximum: 50}
 	validates :phone_number, length: {minimum: 3, maximum: 50}
 	validates :email, length: {minimum: 3, maximum: 50}
+	validates :latitude, :presence => {:message => "Debe seleccionar una ubicación para la franquicia en el mapa"}
+	# validates :longitude, :presence => {:message => "no puede estar vacío"}
 end

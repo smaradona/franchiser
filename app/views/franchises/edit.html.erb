@@ -1,10 +1,13 @@
-<h1>Nueva Franquicia</h1>
+<%= javascript_tag do %>
+  franchLat = ("<%= @franchise.latitude %>")
+  franchLng = ("<%= @franchise.longitude %>")
+<% end %>
+<h1>Editing a franchise</h1>
 <%= error_messages_for(@franchise) %>
-<input id="pac-input" class="controls" type="text" placeholder="Search Box">
 <div id="map-canvas" style="width: 800px; height: 400px"></div>
-<div id="papas">Clickeame</div>
-<%= form_for :franchise, url: franchises_path do |f| %>
-
+ 
+<%= form_for :franchise, url: franchise_path(@franchise), method: :patch do |f| %>
+ 
   <p>
     <%= f.label :owner_name, 'Titular' %><br>
     <%= f.text_field :owner_name, :id =>"titulete" %>
@@ -61,6 +64,7 @@
   <p>
     <%= f.submit %>
   </p>
+ 
 <% end %>
-
+ 
 <%= link_to 'Back', franchises_path %>
