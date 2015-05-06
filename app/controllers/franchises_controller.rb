@@ -1,6 +1,6 @@
 class FranchisesController < ApplicationController
 
-	http_basic_authenticate_with name: "beto", password: "secret"
+	before_action :logged_in_user
 
 	def index
 		@franchises = Franchise.all
@@ -43,8 +43,15 @@ class FranchisesController < ApplicationController
 	end
 
 	private
-		def franchise_params
-			params.require(:franchise).permit(:owner_name, :owner_phone, :province, :zone, :address, :zip_code, :area_code, :phone_number, :owner_email, :email, :longitude, :latitude)
-		end
+
+    def logged_in_user
+      unless logged_in?
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
+    end
+	def franchise_params
+		params.require(:franchise).permit(:owner_name, :owner_phone, :province, :zone, :address, :zip_code, :area_code, :phone_number, :owner_email, :email, :longitude, :latitude)
+	end
 
 end
