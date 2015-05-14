@@ -2,7 +2,7 @@
   franchLat = ("<%= @franchise.latitude %>")
   franchLng = ("<%= @franchise.longitude %>")
 <% end %>
-<h1>Editing a franchise</h1>
+<h1>Editar franquicia</h1>
 <%= error_messages_for(@franchise) %>
 <div id="map-canvas" style="width: 800px; height: 400px"></div>
  
@@ -62,7 +62,7 @@
   <%= f.hidden_field :longitude, :id => "longitude" %>
  
   <p>
-    <%= f.submit %>
+    <%= f.submit "Editar", :class => "btn" %>
   </p>
  
 <% end %>

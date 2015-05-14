@@ -1,8 +1,9 @@
 <h1>Nueva Franquicia</h1>
 <%= error_messages_for(@franchise) %>
+<%= render 'application/help' %>
 <input id="pac-input" class="controls" type="text" placeholder="Search Box">
 <div id="map-canvas" style="width: 800px; height: 400px"></div>
-<div id="papas">Clickeame</div>
+
 <%= form_for :franchise, url: franchises_path do |f| %>
 
   <p>
@@ -59,7 +60,7 @@
   <%= f.hidden_field :longitude, :id => "longitude" %>
  
   <p>
-    <%= f.submit %>
+    <%= f.submit "Guardar", :class => "btn" %>
   </p>
 <% end %>
 

@@ -1,25 +1,29 @@
-$(document).ready(function () {
+function toggle_visibility(id) {
+   var e = document.getElementById(id);
+   if(e.style.display == 'block')
+      e.style.display = 'none';
+   else
+      e.style.display = 'block';
+}
 
-$( "#papas" ).click(function() {
-  $('#franchise_latitude').val("66.6666");
-});
+$(document).ready(function () {
 
 function initialize() {
 
   var greyIcon = {
-    url: "https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/128/marker.png",
-    size: new google.maps.Size(71, 71),
+    url: "<%= asset_path 'logo-grey.png' %>",
+    size: new google.maps.Size(100, 100),
     origin: new google.maps.Point(0, 0),
     anchor: new google.maps.Point(17, 34),
-    scaledSize: new google.maps.Size(25, 25)
+    scaledSize: new google.maps.Size(40, 40)
   };
 
   var colorIcon = {
-    url: "https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Marker-Outside-Pink.png",
-    size: new google.maps.Size(71, 71),
+    url: "<%= asset_path 'logo-color.png' %>",
+    size: new google.maps.Size(100, 100),
     origin: new google.maps.Point(0, 0),
     anchor: new google.maps.Point(17, 34),
-    scaledSize: new google.maps.Size(25, 25)
+    scaledSize: new google.maps.Size(40, 40)
   };
   var markers = [];
   if (typeof latitudes !== 'undefined' && latitudes.length > 0) {
@@ -44,7 +48,7 @@ function initialize() {
         });
         circle.bindTo('center', marker, 'position');
       }
-    }, 1000);
+    }, 1500);
   }
   if (typeof franchLat !== 'undefined') {
     setTimeout(function () {

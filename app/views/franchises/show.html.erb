@@ -2,7 +2,7 @@
 	franchLat = ("<%= @franchise.latitude %>")
 	franchLng = ("<%= @franchise.longitude %>")
 <% end %>
-<h1>This is <%= @franchise.owner_name %>'s franchise</h1>
+<h1>FRANQUICIA DE <%= @franchise.owner_name.upcase %></h1>
 <div id="map-canvas" style="width: 800px; height: 400px"></div>
 
   <p>
@@ -55,4 +55,4 @@
     <%= @franchise.email %> <br>
   </p>
 
-<%= link_to 'Back', franchises_path %>
+<%= link_to 'Volver', franchises_path %>
