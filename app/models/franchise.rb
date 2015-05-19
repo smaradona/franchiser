@@ -11,6 +11,6 @@ class Franchise < ActiveRecord::Base
 	validates :area_code, length: {minimum: 3, maximum: 25, too_short: 'es demasiado corto (3 caracteres mínimo)', too_long: 'es demasiado largo (25 caracteres máximo)'}
 	validates :phone_number, length: {minimum: 3, maximum: 25, too_short: 'es demasiado corto (3 caracteres mínimo)', too_long: 'es demasiado largo (25 caracteres máximo)'}
 	validates :email, :length => { maximum: 255 }, :format => { with: VALID_EMAIL_REGEX, message: "no tiene formato de correo electrónico"}
-	validates :latitude, :presence => {:message => "Debe seleccionar una ubicación para la franquicia en el mapa"}
+	validates :latitude, :presence => {:message => "no está definida en el mapa"}
 	# validates :longitude, :presence => {:message => "no puede estar vacío"}
 end

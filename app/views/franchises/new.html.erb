@@ -3,6 +3,8 @@
 <%= render 'application/help' %>
 <input id="pac-input" class="controls" type="text" placeholder="Search Box">
 <div id="map-canvas" style="width: 800px; height: 400px"></div>
+<div id="poly">Poliete</div>
+<div id="franchella">Franchella</div>
 
 <%= form_for :franchise, url: franchises_path do |f| %>
 
@@ -64,4 +66,4 @@
   </p>
 <% end %>
 
-<%= link_to 'Back', franchises_path %>
+<%= link_to 'Volver', franchises_path %>

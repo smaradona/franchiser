@@ -2,56 +2,76 @@
 	franchLat = ("<%= @franchise.latitude %>")
 	franchLng = ("<%= @franchise.longitude %>")
 <% end %>
-<h1>FRANQUICIA DE <%= @franchise.owner_name.upcase %></h1>
+<h1>Franquicia de <%= @franchise.owner_name %></h1>
 <div id="map-canvas" style="width: 800px; height: 400px"></div>
 
   <p>
-    Titular <br>
+    <div class="title">
+      Titular <br>
+    </div>
     <%= @franchise.owner_name %> <br>
   </p>
 
   <p>
-    Teléfono del Titular <br>
+    <div class="title">
+      Teléfono del Titular <br>
+    </div>
     <%= @franchise.owner_phone %> <br>
   </p>
 
   <p>
-    Teléfono del Titular <br>
+    <div class="title">
+      Teléfono del Titular <br>
+    </div>
     <%= @franchise.owner_email %> <br>
   </p>
 
   <p>
-    Provincia <br>
+    <div class="title">
+      Provincia <br>
+    </div>
     <%= @franchise.province %> <br>
   </p>
  
   <p>
-    Zona <br>
+    <div class="title">
+      Zona <br>
+    </div>
     <%= @franchise.zone %> <br>
   </p>
 
   <p>
-    Dirección <br>
+    <div class="title">
+      irección <br>
+    </div>
     <%= @franchise.address %> <br>
   </p>
 
   <p>
-    Código Postal <br>
+    <div class="title">
+      Código Postal <br>
+    </div>
     <%= @franchise.zip_code %> <br>
   </p>
 
   <p>
-    Código de Área <br>
+    <div class="title">
+      Código de Área <br>
+    </div>
     <%= @franchise.area_code %> <br>
   </p>
 
   <p>
-    Teléfono de la Franquicia <br>
+    <div class="title">
+      Teléfono de la Franquicia <br>
+    </div>
     <%= @franchise.phone_number %> <br>
   </p>
 
   <p>
-    Email de la Franquicia <br>
+    <div class="title">
+      Email de la Franquicia <br>
+    </div>
     <%= @franchise.email %> <br>
   </p>
 

@@ -1,15 +1,9 @@
-function toggle_visibility(id) {
-   var e = document.getElementById(id);
-   if(e.style.display == 'block')
-      e.style.display = 'none';
-   else
-      e.style.display = 'block';
-}
-
-$(document).ready(function () {
-
 function initialize() {
 
+  var polyId = document.getElementById("poly");
+  var franchId = document.getElementById("franchella");
+  var help = document.getElementById("help-title");
+  var listener1;
   var greyIcon = {
     url: "<%= asset_path 'logo-grey.png' %>",
     size: new google.maps.Size(100, 100),
@@ -26,6 +20,7 @@ function initialize() {
     scaledSize: new google.maps.Size(40, 40)
   };
   var markers = [];
+  var path = new google.maps.MVCArray;
   if (typeof latitudes !== 'undefined' && latitudes.length > 0) {
     setTimeout(function () {
       var map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -82,29 +77,73 @@ function initialize() {
 
 
   function clearMarkers() {
-  	for (var i = 0, marker; marker = markers[i]; i++) {
+    for (var i = 0, marker; marker = markers[i]; i++) {
       marker.setMap(null);
     }
     markers = [];
   }
 
   function addFranchise(location) {
-    alert(location);
-	  clearMarkers();
-	  var marker = new google.maps.Marker({
-	    position: location,
-	    map: map,
-	    icon: colorIcon,
-	    draggable: true,
-	    animation: google.maps.Animation.DROP
-	  });
-	  markers.push(marker);
+    clearMarkers();
+    var marker = new google.maps.Marker({
+      position: location,
+      map: map,
+      icon: colorIcon,
+      draggable: true,
+      animation: google.maps.Animation.DROP
+    });
+    markers.push(marker);
     latitude = markers[0].getPosition().lat();
     longitude = markers[0].getPosition().lng();
     $('#latitude').val(latitude);
     $('#longitude').val(longitude);
-	}
+  }
+  polyId.addEventListener("click", function() {
 
+    poly = new google.maps.Polygon({
+      strokeWeight: 3,
+      fillColor: '#5555FF'
+    });
+    poly.setMap(map);
+    poly.setPaths(new google.maps.MVCArray([path]));
+
+    var listener1 = google.maps.event.addListener(map, 'click', addPoint);
+
+    function addPoint(event) {
+      google.maps.event.removeListener(listener1);
+      path.insertAt(path.length, event.latLng);
+
+      var marker = new google.maps.Marker({
+        position: event.latLng,
+        map: map,
+        draggable: true
+      });
+      markers.push(marker);
+      marker.setTitle("#" + path.length);
+
+      google.maps.event.addListener(marker, 'click', function() {
+        marker.setMap(null);
+        for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
+        markers.splice(i, 1);
+        path.removeAt(i);
+        }
+      );
+
+      google.maps.event.addListener(marker, 'dragend', function() {
+        for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
+        path.setAt(i, marker.getPosition());
+        }
+      );
+    }
+  });
+
+  help.addEventListener("click", function() {
+     var e = document.getElementById('help-content');
+     if(e.style.display == 'block')
+        e.style.display = 'none';
+     else
+        e.style.display = 'block';
+  });
   // Create the search box and link it to the UI element.
   var input = /** @type {HTMLInputElement} */(
       document.getElementById('pac-input'));
@@ -113,9 +152,14 @@ function initialize() {
   var searchBox = new google.maps.places.SearchBox(
     /** @type {HTMLInputElement} */(input));
 
+  franchId.addEventListener("click", function() {
+    google.maps.event.removeListener(listener1);
   // This event listener will call addMarker() when the map is clicked.
-  google.maps.event.addListener(map, 'click', function(event) {
+  var listener2 = google.maps.event.addListener(map, 'click', function(event) {
     addFranchise(event.latLng);
+    google.maps.event.removeListener(listener2);
+  });
+
   });
   // Listen for the event fired when the user selects an item from the
   // pick list. Retrieve the matching places for that item.
@@ -177,4 +221,3 @@ function initialize() {
   });
 }
 google.maps.event.addDomListener(window, 'load', initialize);
-});

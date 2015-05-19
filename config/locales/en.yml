@@ -34,6 +34,7 @@ en:
         area_code: "Código de área"
         phone: "Teléfono"
         email: "Email"
+        latitude: "Ubicación geográfica"
     errors:
       models:
         franchise:
