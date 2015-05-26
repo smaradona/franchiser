@@ -4,6 +4,18 @@ function initialize() {
   var franchId = document.getElementById("franchella");
   var help = document.getElementById("help-title");
   var listener1;
+  var listener2;
+  var area = [];
+  var areaLat = [];
+  var areaLng = [];
+  var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|ce0e18",
+      new google.maps.Size(21, 34),
+      new google.maps.Point(0,0),
+      new google.maps.Point(10, 34));
+  var firstPin = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|1a3dbc",
+      new google.maps.Size(21, 34),
+      new google.maps.Point(0,0),
+      new google.maps.Point(10, 34));
   var greyIcon = {
     url: "<%= asset_path 'logo-grey.png' %>",
     size: new google.maps.Size(100, 100),
@@ -20,6 +32,7 @@ function initialize() {
     scaledSize: new google.maps.Size(40, 40)
   };
   var markers = [];
+  var markers2 = [];
   var path = new google.maps.MVCArray;
   if (typeof latitudes !== 'undefined' && latitudes.length > 0) {
     setTimeout(function () {
@@ -46,7 +59,6 @@ function initialize() {
     }, 1500);
   }
   if (typeof franchLat !== 'undefined') {
-    setTimeout(function () {
       var map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: 18,
         center: new google.maps.LatLng(franchLat, franchLng),
@@ -66,7 +78,34 @@ function initialize() {
           $('#latitude').val(latitude);
           $('#longitude').val(longitude);
       });
-    }, 500);
+    var coords = [];
+    var bermudaTriangle = [];
+    areaTotal = areaTotal.replace(/[\[\]']+/g,'');
+    areaTotal = areaTotal.split(',');
+    for (var i = 0; i < areaTotal.length; i++) {
+      if(i%2 == 0 || i == 0){
+        areaLat.push(areaTotal[i]);
+      } else {
+        areaLng.push(areaTotal[i]);
+      }
+    }
+    for (var i = 0; i < areaLat.length; i++) {
+      areaLat[i] = parseFloat(areaLat[i]);
+      areaLng[i] = parseFloat(areaLng[i]);
+      coords.push(new google.maps.LatLng(areaLat[i], areaLng[i]));
+    }
+
+    // Construct the polygon.
+    bermudaTriangle = new google.maps.Polygon({
+      paths: coords,
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 3,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35
+    });
+
+    bermudaTriangle.setMap(map);
   } else {
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
       zoom: 6,
@@ -98,7 +137,45 @@ function initialize() {
     $('#latitude').val(latitude);
     $('#longitude').val(longitude);
   }
+
   polyId.addEventListener("click", function() {
+    google.maps.event.removeListener(listener2);
+    listener1 = google.maps.event.addListener(map, 'click', addPoint);
+
+    function addPoint(event) {
+    // Markers color change
+    if (markers2.length > 0) {
+      for (i = 0; i < markers2.length; i++) {
+          markers2[i].setIcon(pinImage);
+      }
+    }
+      path.insertAt(path.length, event.latLng);
+
+      var marker = new google.maps.Marker({
+        position: event.latLng,
+        map: map,
+        draggable: true,
+        icon: firstPin
+      });
+      markers2.push(marker);
+      area.push([marker.getPosition().lat(), marker.getPosition().lng()]);
+      marker.setTitle("#" + path.length);
+
+      google.maps.event.addListener(marker, 'click', function() {
+        marker.setMap(null);
+        for (var i = 0, I = markers2.length; i < I && markers2[i] != marker; ++i);
+        markers2.splice(i, 1);
+        path.removeAt(i);
+        }
+      );
+
+      google.maps.event.addListener(marker, 'dragend', function() {
+        for (var i = 0, I = markers2.length; i < I && markers2[i] != marker; ++i);
+        path.setAt(i, marker.getPosition());
+        }
+      );
+      $('#area').val(area);
+    }
 
     poly = new google.maps.Polygon({
       strokeWeight: 3,
@@ -107,34 +184,6 @@ function initialize() {
     poly.setMap(map);
     poly.setPaths(new google.maps.MVCArray([path]));
 
-    var listener1 = google.maps.event.addListener(map, 'click', addPoint);
-
-    function addPoint(event) {
-      google.maps.event.removeListener(listener1);
-      path.insertAt(path.length, event.latLng);
-
-      var marker = new google.maps.Marker({
-        position: event.latLng,
-        map: map,
-        draggable: true
-      });
-      markers.push(marker);
-      marker.setTitle("#" + path.length);
-
-      google.maps.event.addListener(marker, 'click', function() {
-        marker.setMap(null);
-        for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
-        markers.splice(i, 1);
-        path.removeAt(i);
-        }
-      );
-
-      google.maps.event.addListener(marker, 'dragend', function() {
-        for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
-        path.setAt(i, marker.getPosition());
-        }
-      );
-    }
   });
 
   help.addEventListener("click", function() {
@@ -155,9 +204,8 @@ function initialize() {
   franchId.addEventListener("click", function() {
     google.maps.event.removeListener(listener1);
   // This event listener will call addMarker() when the map is clicked.
-  var listener2 = google.maps.event.addListener(map, 'click', function(event) {
+    listener2 = google.maps.event.addListener(map, 'click', function(event) {
     addFranchise(event.latLng);
-    google.maps.event.removeListener(listener2);
   });
 
   });

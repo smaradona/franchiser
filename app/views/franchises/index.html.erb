@@ -2,11 +2,17 @@
 <%= javascript_tag do %>
 	var latitudes = [];
 	var longitudes = [];
+	var areaTotal = [];
 <% end %>
 <% @franchises.each do |f| %>
 	<%= javascript_tag do %>
 		latitudes.push("<%= f.latitude %>")
 		longitudes.push("<%= f.longitude %>")
+		<% if f.area.nil? %>
+			areaTotal.push('');
+		<% else %>
+			areaTotal.push("<%= f.area.split(",").map(&:to_f) %>")
+		<% end %>
 	<% end %>
 <% end %>
 <div id="map-canvas" style="width: 800px; height: 400px"></div>
@@ -34,3 +40,7 @@
 	</tr>
 	<% end %>
 </table>
+
+<% content_for :javascript do %>
+  <%= javascript_include_tag 'franchise_index' %>
+<% end %>

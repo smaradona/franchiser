@@ -2,11 +2,14 @@
 <%= error_messages_for(@franchise) %>
 <%= render 'application/help' %>
 <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+<div id="controls">
+  <div id="franchise-button" class="unselected"></div>
+  <div id="polygon-button" class="unselected"></div>
+</div>
 <div id="map-canvas" style="width: 800px; height: 400px"></div>
-<div id="poly">Poliete</div>
-<div id="franchella">Franchella</div>
+<div id="errorsDiv"></div>
 
-<%= form_for :franchise, url: franchises_path do |f| %>
+<%= form_for :franchise, html: { name: "franchise_form" }, url: franchises_path do |f| %>
 
   <p>
     <%= f.label :owner_name, 'Titular' %><br>
@@ -60,6 +63,7 @@
 
   <%= f.hidden_field :latitude, :id => "latitude" %>
   <%= f.hidden_field :longitude, :id => "longitude" %>
+  <%= f.hidden_field :area, :id => "area" %>
  
   <p>
     <%= f.submit "Guardar", :class => "btn" %>
@@ -67,3 +71,9 @@
 <% end %>
 
 <%= link_to 'Volver', franchises_path %>
+
+<% content_for :javascript do %>
+  <%= javascript_include_tag 'franchise_new' %>
+  <%= javascript_include_tag 'validation' %>
+  <%= javascript_include_tag 'validation_rules' %>
+<% end %>

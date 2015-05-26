@@ -51,7 +51,7 @@ class FranchisesController < ApplicationController
       end
     end
 	def franchise_params
-		params.require(:franchise).permit(:owner_name, :owner_phone, :province, :zone, :address, :zip_code, :area_code, :phone_number, :owner_email, :email, :longitude, :latitude)
+		params.require(:franchise).permit(:owner_name, :owner_phone, :province, :zone, :address, :zip_code, :area_code, :phone_number, :owner_email, :email, :longitude, :latitude, :area)
 	end
 
 end

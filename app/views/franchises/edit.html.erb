@@ -1,9 +1,17 @@
 <%= javascript_tag do %>
   franchLat = ("<%= @franchise.latitude %>")
   franchLng = ("<%= @franchise.longitude %>")
+  <% if @franchise.area.nil? %>
+    areaTotal = ""
+  <% else %>
+    areaTotal = ("<%= @franchise.area.split(",").map(&:to_f) %>")
+  <% end %>
 <% end %>
 <h1>Editar franquicia</h1>
 <%= error_messages_for(@franchise) %>
+<div id="controls">
+  <div id="polygon-button" class="unselected"></div>
+</div>
 <div id="map-canvas" style="width: 800px; height: 400px"></div>
  
 <%= form_for :franchise, url: franchise_path(@franchise), method: :patch do |f| %>
@@ -60,6 +68,7 @@
 
   <%= f.hidden_field :latitude, :id => "latitude" %>
   <%= f.hidden_field :longitude, :id => "longitude" %>
+  <%= f.hidden_field :area, :id => "area" %>
  
   <p>
     <%= f.submit "Editar", :class => "btn" %>
@@ -68,3 +77,7 @@
 <% end %>
  
 <%= link_to 'Volver', franchises_path %>
+
+<% content_for :javascript do %>
+  <%= javascript_include_tag 'franchise_edit' %>
+<% end %>

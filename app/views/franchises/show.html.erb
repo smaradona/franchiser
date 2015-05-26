@@ -1,6 +1,11 @@
 <%= javascript_tag do %>
 	franchLat = ("<%= @franchise.latitude %>")
-	franchLng = ("<%= @franchise.longitude %>")
+  franchLng = ("<%= @franchise.longitude %>")
+  <% if @franchise.area.nil? %>
+    areaTotal = ""
+  <% else %>
+    areaTotal = ("<%= @franchise.area.split(",").map(&:to_f) %>")
+  <% end %>
 <% end %>
 <h1>Franquicia de <%= @franchise.owner_name %></h1>
 <div id="map-canvas" style="width: 800px; height: 400px"></div>
@@ -10,6 +15,13 @@
       Titular <br>
     </div>
     <%= @franchise.owner_name %> <br>
+  </p>
+
+    <p>
+    <div class="title">
+      Area <br>
+    </div>
+    <%= @franchise.area %> <br>
   </p>
 
   <p>
@@ -76,3 +88,7 @@
   </p>
 
 <%= link_to 'Volver', franchises_path %>
+
+<% content_for :javascript do %>
+  <%= javascript_include_tag 'franchise_show' %>
+<% end %>
