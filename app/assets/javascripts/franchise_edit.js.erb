@@ -113,7 +113,6 @@ function initialize() {
 
   // Add listener to create the polygon draw button.
   polyId.addEventListener("click", function() {
-    franchId.removeAttribute("class");
     polyId.className = 'selected';
     google.maps.event.removeListener(listener2);
     if (typeof listener1 == "undefined" || listener1.gb == null) {
