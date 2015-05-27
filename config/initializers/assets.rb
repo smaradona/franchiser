@@ -10,8 +10,7 @@ Rails.application.config.assets.precompile += %w( franchise_new.js )
 Rails.application.config.assets.precompile += %w( franchise_edit.js )
 Rails.application.config.assets.precompile += %w( validation.js )
 Rails.application.config.assets.precompile += %w( validation_rules.js )
-Rails.application.config.assets.precompile << /\.(?:png|jpg|jpeg|gif)\z/
-Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/
+
 # Rails.application.config.assets.paths << Emoji.images_path
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
