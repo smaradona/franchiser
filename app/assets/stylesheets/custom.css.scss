@@ -135,7 +135,7 @@ label {
 #franchise-button {
   width: 31px;
   height: 31px;
-  background-image: asset-url(add-franchise.png, image);
+  background-image: asset-url(add-franchise);
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 8px;
@@ -144,13 +144,13 @@ label {
   box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
 }
 #franchise-button.selected {
-  background-image: asset-url(add-franchise-selected.png, image);
+  background-image: asset-url(add-franchise-selected);
 }
 #polygon-button {
   margin-top: 8px;
   width: 31px;
   height: 31px;
-  background-image: asset-url(add-area.png, image);
+  background-image: asset-url(add-area);
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 8px;
@@ -159,7 +159,7 @@ label {
   box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
 }
 #polygon-button.selected {
-  background-image: asset-url(add-area-selected.png, image);
+  background-image: asset-url(add-area-selected);
 }
 #polygon-button:hover,
 #franchise-button:hover {
