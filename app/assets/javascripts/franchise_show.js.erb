@@ -1,20 +1,20 @@
 function initialize() {
   var areaLat = [];
-      areaLng = [];
-      coords = [];
-      areaPoly = [];
-      colorIcon = {
-        url: "<%= asset_path 'logo-color.png' %>",
-        size: new google.maps.Size(100, 100),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(40, 40)
-      };
-      map = new google.maps.Map(document.getElementById('map-canvas'), {
-        zoom: 18,
-        center: new google.maps.LatLng(franchLat, franchLng),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      });
+    areaLng = [];
+    coords = [];
+    areaPoly = [];
+    colorIcon = {
+      url: "<%= asset_path 'logo-color.png' %>",
+      size: new google.maps.Size(100, 100),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(40, 40)
+    };
+    map = new google.maps.Map(document.getElementById('map-canvas'), {
+      zoom: 18,
+      center: new google.maps.LatLng(franchLat, franchLng),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
 
   // Franchise coordinates.
   localization = new google.maps.LatLng(franchLat, franchLng);
