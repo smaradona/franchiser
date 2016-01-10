@@ -1,6 +1,6 @@
 <% if object && object.errors.size > 0 %>
   <div id="errorExplanation">
-    Se han encontrado los siguientes errores:
+    Se han encontrado uno o más errores:
     <ul>
     <% object.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
